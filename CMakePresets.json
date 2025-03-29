@@ -1,0 +1,27 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "gcc-debug",
+            "description": "Debug preset for the GCC compiler",
+            "hidden": false,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${workspaceFolder}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "YES"
+            }
+        },
+        {
+            "name": "gcc-release",
+            "description": "Debug preset for the GCC compiler",
+            "hidden": false,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${workspaceFolder}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "YES"
+            }
+        }
+    ]
+}
