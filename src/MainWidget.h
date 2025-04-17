@@ -10,6 +10,7 @@ private:
     QPointer<QWidget> _leftColumn;
     QPointer<QVBoxLayout> _leftLayout;
     QPointer<QComboBox> _llmMenu;
+    QPointer<QLabel> _selectedLLM;
     QPointer<QLabel> _leftLabel;
     QPointer<QWidget> _middleColumn;
     QPointer<QVBoxLayout> _middleLayout;
@@ -21,6 +22,9 @@ private:
 public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
+
+private:
+    void SetSelectedItem(QString item);
 };
 
 #endif

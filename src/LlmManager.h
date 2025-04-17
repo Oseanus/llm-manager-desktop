@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QPointer>
+#include <QString>
 
 #include "MainWidget.h"
 

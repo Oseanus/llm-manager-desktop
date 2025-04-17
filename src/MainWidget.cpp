@@ -14,6 +14,9 @@ MainWidget::MainWidget(QWidget *parent)
     _llmMenu->addItem("Item 2");
     _llmMenu->addItem("Item 3");
     _leftLayout->addWidget(_llmMenu);
+
+    _selectedLLM = new QLabel(_llmMenu->currentText());
+    _leftLayout->addWidget(_selectedLLM);
     
     _leftLabel = new QLabel("Left Column Widget 1");
     _leftLayout->addWidget(_leftLabel);
@@ -40,9 +43,21 @@ MainWidget::MainWidget(QWidget *parent)
     _mainLayout->addWidget(_rightColumn);  // Fixed width column
 
     setLayout(_mainLayout);
+
+    // Events handler
+    
+    connect(_llmMenu, &QComboBox::currentTextChanged, this, [this]()
+    {
+        this->SetSelectedItem(_llmMenu->currentText());
+    });
 }
 
 MainWidget::~MainWidget()
 {
     
+}
+
+void MainWidget::SetSelectedItem(QString item)
+{
+    _selectedLLM->setText(item);
 }
