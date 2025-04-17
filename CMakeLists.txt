@@ -19,8 +19,9 @@ qt_standard_project_setup()
 
 # Add the executable
 file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "src/*.h")
 
-add_executable(${PRJ} ${SOURCES})
+add_executable(${PRJ} ${SOURCES} ${HEADERS})
 
 # Link Qt libraries
 target_link_libraries(${PRJ} PRIVATE Qt6::Core Qt6::Widgets)
