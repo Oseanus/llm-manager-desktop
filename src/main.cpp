@@ -4,7 +4,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    QWidget window;
+    MainWidget window;
     window.setWindowTitle("LLM Manager");  // Set the window title
     window.resize(800, 600);  // Set the initial window size to 800x600 pixels
 
@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     mainLayout.addWidget(&rightColumn);  // Fixed width column
 
     window.setLayout(&mainLayout);
+
     window.show();
 
     return app.exec();
