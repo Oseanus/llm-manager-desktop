@@ -28,3 +28,4 @@ target_link_libraries(${PRJ} PRIVATE Qt6::Core Qt6::Widgets)
 
 # Include directories
 include_directories(src)
+include_directories(${Qt6Widgets_INCLUDE_DIRS})
