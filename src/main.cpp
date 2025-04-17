@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QComboBox>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -17,6 +18,13 @@ int main(int argc, char *argv[]) {
     // Left column layout
     QWidget *leftColumn = new QWidget;
     QVBoxLayout *leftLayout = new QVBoxLayout(leftColumn);
+    
+    QComboBox *llmMenu = new QComboBox();
+    llmMenu->addItem("Item 1");
+    llmMenu->addItem("Item 2");
+    llmMenu->addItem("Item 3");
+    leftLayout->addWidget(llmMenu);
+    
     leftLayout->addWidget(new QLabel("Left Column Widget 1"));
     leftColumn->setFixedWidth(150);  // Set fixed width for left column
 
