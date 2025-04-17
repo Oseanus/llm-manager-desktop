@@ -1,3 +1,12 @@
+#include <QApplication>
+#include <QWidget>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QComboBox>
+#include <QPointer>
+
 #include "LlmManager.h"
 
 int main(int argc, char *argv[]) {
