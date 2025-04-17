@@ -7,6 +7,9 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QComboBox> 
+#include <QComboBox>
+#include <QPointer>
+
+#include "MainWidget.h"
 
 #endif
