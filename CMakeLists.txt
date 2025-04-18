@@ -23,8 +23,8 @@ file(GLOB_RECURSE HEADERS "src/*.h")
 
 add_executable(${PRJ} ${SOURCES} ${HEADERS})
 
-# Link Qt libraries
-target_link_libraries(${PRJ} PRIVATE Qt6::Core Qt6::Widgets)
+# Link libraries
+target_link_libraries(${PRJ} PRIVATE Qt6::Core Qt6::Widgets curl)
 
 # Include directories
 include_directories(src)

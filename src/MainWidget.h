@@ -3,6 +3,8 @@
 
 #include "LlmManager.h"
 
+class OllamaAPI;
+
 class MainWidget : public QWidget
 {
 private:
@@ -19,8 +21,11 @@ private:
     QPointer<QVBoxLayout> _rightLayout;
     QPointer<QLabel> _rightLabel;
 
+    std::string _apiUri;
+    std::unique_ptr<OllamaAPI> _api;
+
 public:
-    MainWidget(QWidget *parent = nullptr);
+    MainWidget(QWidget *parent = nullptr, const std::string url = "127.0.0.1", const std::string port = "11434");
     ~MainWidget();
 
 private:

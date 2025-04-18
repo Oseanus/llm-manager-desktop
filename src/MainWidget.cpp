@@ -1,8 +1,21 @@
 #include "MainWidget.h"
 
-MainWidget::MainWidget(QWidget *parent)
-    : QWidget(parent)
+MainWidget::MainWidget(QWidget *parent, const std::string url, const std::string port)
+    : QWidget(parent), _api(nullptr)
 {
+    _apiUri = "http://" + url + ":" + port;
+    _api = std::make_unique<OllamaAPI>(_apiUri);
+    std::vector<std::string> models;
+    
+    try
+    {
+        models = _api->ListLLMs();
+    }
+    catch(const std::exception& e)
+    {
+        close();
+    }
+    
     _mainLayout = new QHBoxLayout(this);
 
     // Left column layout
@@ -10,9 +23,15 @@ MainWidget::MainWidget(QWidget *parent)
     _leftLayout = new QVBoxLayout(_leftColumn);
     
     _llmMenu = new QComboBox();
-    _llmMenu->addItem("Item 1");
-    _llmMenu->addItem("Item 2");
-    _llmMenu->addItem("Item 3");
+
+    for(const auto& model : models)
+    {
+        _llmMenu->addItem(model.c_str());
+    }
+
+    // _llmMenu->addItem("Item 1");
+    // _llmMenu->addItem("Item 2");
+    // _llmMenu->addItem("Item 3");
     _leftLayout->addWidget(_llmMenu);
 
     _selectedLLM = new QLabel(_llmMenu->currentText());
