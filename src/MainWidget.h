@@ -20,14 +20,23 @@ private:
     QPointer<QWidget> _rightColumn;
     QPointer<QVBoxLayout> _rightLayout;
     QPointer<QLabel> _rightLabel;
+    QPointer<QTextBrowser> _chatDisplay;
+    QPointer<QLineEdit> _messageInput;
+    QPointer<QPushButton> _sendButton;
+    QPointer<QHBoxLayout> _inputLayout;
 
     std::unique_ptr<OllamaAPI> _api;
 
-public:
+public: // Methods
     MainWidget(QWidget *parent = nullptr, const std::string url = "127.0.0.1", const int port = 11434);
     ~MainWidget();
 
-private:
+private: // Methods
+    void CreateLeftPanel(const std::vector<std::string>& models);
+    void CreateMiddlePanel();
+    void CreateRightPanel();
+
+private: // Slots
     void SetSelectedItem(QString item);
 };
 

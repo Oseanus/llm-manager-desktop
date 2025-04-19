@@ -19,6 +19,8 @@
 #include <QComboBox>
 #include <QPointer>
 #include <QString>
+#include <QLineEdit>
+#include <QTextBrowser>
 
 // Third party libs
 #include "httplib.h"
