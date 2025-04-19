@@ -19,6 +19,7 @@ public: // Methods
     ~OllamaAPI();
 
     std::vector<std::string> ListLLMs();
+    std::string SendMessage(const std::string& prompt, const std::string& model);
 
 private: // Methods
     std::string PerformGetRequest(const std::string&& endPoint);

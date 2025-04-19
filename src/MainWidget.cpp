@@ -123,7 +123,10 @@ void MainWidget::SendMessage()
     if(message.isEmpty()) return;
 
     AppendMessage("You", message);
-    AppendMessage("Bot", "_This is a mock response._");
+
+    std::string response = _api->SendMessage(message.toStdString(), _llmMenu->currentText().toStdString());
+
+    AppendMessage("Bot", QString::fromStdString(response));
 
     _messageInput->clear();
 }

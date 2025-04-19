@@ -19,6 +19,49 @@ std::vector<std::string> OllamaAPI::ListLLMs()
     return modelNames;
 }
 
+std::string OllamaAPI::SendMessage(const std::string& prompt, const std::string& model)
+{
+    const std::string endPoint = "/api/generate";
+
+    json promptJson;
+    promptJson["model"] = model;
+    promptJson["prompt"] = prompt;
+    promptJson["stream"] = false;
+
+    std::string payload = promptJson.dump();
+
+    auto result = _client->Post(endPoint.c_str(), payload, "application/json");
+
+    if(result.error() != Error::Success)
+    {
+        throw std::runtime_error("Failed to retrieve models.");
+    }
+
+    auto response = result.value();
+
+    if (response.status != 200)
+    {
+        return "Failed to retrieve a response.";
+    }
+
+    try
+    {
+        json responseJson = json::parse(response.body);
+        
+        if(responseJson.contains("response"))
+        {
+            return responseJson["response"].get<std::string>();
+        }
+
+        return "⚠️ No 'response' field in Ollama's output.";
+    }
+    catch(const std::exception& e)
+    {
+        return std::string("⚠️ Failed to parse Ollama's response: ") + e.what();
+    }
+    
+}
+
 std::string OllamaAPI::PerformGetRequest(const std::string&& endPoint)
 {
     auto result = _client->Get(endPoint);
