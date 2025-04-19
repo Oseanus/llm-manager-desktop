@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-#include <curl/curl.h>
 #include <nlohmann/json.hpp>
 
 // Qt related libs
@@ -20,6 +19,9 @@
 #include <QComboBox>
 #include <QPointer>
 #include <QString>
+
+// Third party libs
+#include "httplib.h"
 
 // Custom code
 #include "OllamaAPI.h"

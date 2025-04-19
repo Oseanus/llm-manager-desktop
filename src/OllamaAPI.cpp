@@ -1,48 +1,41 @@
 #include "OllamaAPI.h"
 
-OllamaAPI::OllamaAPI(const std::string& apiUri)
-    : _apiUri(apiUri)
+OllamaAPI::OllamaAPI(const std::string url, const int port)
+    : _url(url), _port(port)
 {
-    curl_global_init(CURL_GLOBAL_ALL);
+    _client = std::make_unique<Client>(_url, _port);
 }
 
 OllamaAPI::~OllamaAPI()
 {
-    curl_global_cleanup();
+    
 }
 
 std::vector<std::string> OllamaAPI::ListLLMs()
 {
-    std::string url = _apiUri + "/api/tags";
-    std::string response = PerformGetRequest(url);
+    std::string response = PerformGetRequest("/api/tags");
 
     auto modelNames = ParseModelNames(response);
     return modelNames;
 }
 
-std::string OllamaAPI::PerformGetRequest(const std::string& apiUri)
+std::string OllamaAPI::PerformGetRequest(const std::string&& endPoint)
 {
-    std::unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl(curl_easy_init(), &curl_easy_cleanup);
-
-    if (!curl)
+    auto result = _client->Get(endPoint);
+    
+    if(result.error() != Error::Success)
     {
-        throw std::runtime_error("Failed to initialize CURL.");
+        throw std::runtime_error("Failed to retrieve models.");
     }
 
-    std::string response;
-
-    curl_easy_setopt(curl.get(), CURLOPT_URL, apiUri.c_str());
-    curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
-    curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &response);
-    curl_easy_setopt(curl.get(), CURLOPT_FOLLOWLOCATION, 1L);
-
-    CURLcode res = curl_easy_perform(curl.get());
-    if (res != CURLE_OK)
+    auto response = result.value();
+    
+    if(response.status != 200)
     {
-        throw std::runtime_error("CURL error: " + std::string(curl_easy_strerror(res)));
+        throw std::runtime_error("Failed to connect to OLLAMA API");
     }
 
-    return response;
+    return response.body;
 }
 
 std::vector<std::string> OllamaAPI::ParseModelNames(const std::string& jsonStr)

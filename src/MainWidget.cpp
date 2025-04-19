@@ -1,10 +1,9 @@
 #include "MainWidget.h"
 
-MainWidget::MainWidget(QWidget *parent, const std::string url, const std::string port)
+MainWidget::MainWidget(QWidget *parent, const std::string url, const int port)
     : QWidget(parent), _api(nullptr)
 {
-    _apiUri = "http://" + url + ":" + port;
-    _api = std::make_unique<OllamaAPI>(_apiUri);
+    _api = std::make_unique<OllamaAPI>(url, port);
     std::vector<std::string> models;
     
     try
@@ -28,10 +27,7 @@ MainWidget::MainWidget(QWidget *parent, const std::string url, const std::string
     {
         _llmMenu->addItem(model.c_str());
     }
-
-    // _llmMenu->addItem("Item 1");
-    // _llmMenu->addItem("Item 2");
-    // _llmMenu->addItem("Item 3");
+    
     _leftLayout->addWidget(_llmMenu);
 
     _selectedLLM = new QLabel(_llmMenu->currentText());

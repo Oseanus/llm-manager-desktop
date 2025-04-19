@@ -3,20 +3,25 @@
 
 #include "LlmManager.h"
 
+using Client = httplib::Client;
+using Error = httplib::Error;
+
 class OllamaAPI
 {
 private: // Fields
-    std::string _apiUri;
+    const std::string _url;
+    const int _port;
+    std::unique_ptr<Client> _client;
 
 public: // Methods
     OllamaAPI() = default;
-    OllamaAPI(const std::string& apiUri);
+    OllamaAPI(const std::string url, const int port);
     ~OllamaAPI();
 
     std::vector<std::string> ListLLMs();
 
 private: // Methods
-    std::string PerformGetRequest(const std::string& apiUri);
+    std::string PerformGetRequest(const std::string&& endPoint);
     std::vector<std::string> ParseModelNames(const std::string& jsonStr);
     static size_t WriteCallback(char *contents, size_t size, size_t nmemb, std::unique_ptr<std::string> userp);
 };
