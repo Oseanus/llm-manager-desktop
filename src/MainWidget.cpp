@@ -29,11 +29,7 @@ MainWidget::MainWidget(QWidget *parent, const std::string url, const int port)
     setLayout(_mainLayout);
 
     // Events handler
-    
-    connect(_llmMenu, &QComboBox::currentTextChanged, this, [this]()
-    {
-        this->SetSelectedItem(_llmMenu->currentText());
-    });
+    CreateEventHandler();
 }
 
 MainWidget::~MainWidget()
@@ -91,6 +87,14 @@ void MainWidget::CreateRightPanel()
     _rightLabel = new QLabel("Right Column Widget 1");
     _rightLayout->addWidget(_rightLabel);
     _rightColumn->setFixedWidth(150);  // Set fixed width for right column
+}
+
+void MainWidget::CreateEventHandler()
+{
+    connect(_llmMenu, &QComboBox::currentTextChanged, this, [this]()
+    {
+        this->SetSelectedItem(_llmMenu->currentText());
+    });
 }
 
 void MainWidget::SetSelectedItem(QString item)

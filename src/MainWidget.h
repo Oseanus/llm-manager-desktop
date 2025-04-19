@@ -35,6 +35,7 @@ private: // Methods
     void CreateLeftPanel(const std::vector<std::string>& models);
     void CreateMiddlePanel();
     void CreateRightPanel();
+    void CreateEventHandler();
 
 private: // Slots
     void SetSelectedItem(QString item);
