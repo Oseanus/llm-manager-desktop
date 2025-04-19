@@ -21,6 +21,8 @@
 #include <QString>
 #include <QLineEdit>
 #include <QTextBrowser>
+#include <QTextDocument>
+#include <QDateTime>
 
 // Third party libs
 #include "httplib.h"

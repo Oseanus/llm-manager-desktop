@@ -31,14 +31,17 @@ public: // Methods
     MainWidget(QWidget *parent = nullptr, const std::string url = "127.0.0.1", const int port = 11434);
     ~MainWidget();
 
+private slots:
+    void SendMessage();
+    
 private: // Methods
     void CreateLeftPanel(const std::vector<std::string>& models);
     void CreateMiddlePanel();
     void CreateRightPanel();
     void CreateEventHandler();
-
-private: // Slots
+    void AppendMessage(const QString& sender, const QString& markdownMessage);
     void SetSelectedItem(QString item);
+
 };
 
 #endif

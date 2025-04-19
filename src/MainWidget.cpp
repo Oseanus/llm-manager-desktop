@@ -95,9 +95,35 @@ void MainWidget::CreateEventHandler()
     {
         this->SetSelectedItem(_llmMenu->currentText());
     });
+
+    connect(_sendButton, &QPushButton::clicked, this, &MainWidget::SendMessage);
+    connect(_messageInput, &QLineEdit::returnPressed, this, &MainWidget::SendMessage);
+}
+
+void MainWidget::AppendMessage(const QString& sender, const QString& markdownMessage)
+{
+    QTextDocument doc;
+    doc.setMarkdown(markdownMessage);
+    QString html = doc.toHtml();
+
+    QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss");
+
+    _chatDisplay->append(QString("<b>%1 [%2]:</b><br>%3</br>").arg(sender, timestamp, html));
 }
 
 void MainWidget::SetSelectedItem(QString item)
 {
     _selectedLLM->setText(item);
+}
+
+void MainWidget::SendMessage()
+{
+    QString message = _messageInput->text().trimmed();
+
+    if(message.isEmpty()) return;
+
+    AppendMessage("You", message);
+    AppendMessage("Bot", "_This is a mock response._");
+
+    _messageInput->clear();
 }
